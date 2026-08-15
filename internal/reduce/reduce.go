@@ -395,7 +395,7 @@ func reconcile(path string, shot model.Shot, resolved resolvedUnits, tolerances 
 			return 0, 0, 0, reconciliation, nil, nil, err
 		}
 		backAsForward := units.OppositeAzimuth(rawBack + resolved.azimuthCorrectionDeg + resolved.declinationDeg)
-		disagreement := math.Abs(foreAzimuth - backAsForward)
+		disagreement := units.AzimuthSeparation(foreAzimuth, backAsForward)
 		reconciliation.AzimuthDisagreementDeg = disagreement
 		if disagreement <= tolerances.BacksightAzimuthDeg {
 			azimuth = units.AverageAzimuth(foreAzimuth, backAsForward)
